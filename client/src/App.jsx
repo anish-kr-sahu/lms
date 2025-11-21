@@ -1,6 +1,7 @@
 
 import './App.css'
 import { Button } from './components/ui/button'
+import { Login } from './pages/Login'
 
 function App() {
  
@@ -8,8 +9,8 @@ function App() {
   return (
     <>
       <div>
-        Hello World
-        <Button>Let's Build Lms 🙂</Button>
+        <Login/>
+        {/* <Button>Let's Build Lms 🙂</Button> */}
       </div>
         
     </>
