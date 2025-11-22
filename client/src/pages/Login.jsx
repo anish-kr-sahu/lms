@@ -83,7 +83,7 @@ export const Login = () => {
     registerError,
   ]);
   return (
-    <div className="flex items-center justify-center w-full">
+    <div className="flex items-center justify-center w-full mt-20">
       <div className="flex w-full max-w-sm flex-col gap-6">
         <Tabs defaultValue="account">
           <TabsList>
