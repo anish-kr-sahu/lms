@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { userLoggedIn } from "../authSlice.js";
+import { userLoggedIn, userLoggedOut } from "../authSlice.js";
 
 const USER_API = "http://localhost:3000/api/v1/user/";
 
@@ -7,7 +7,7 @@ export const authApi = createApi({
     reducerPath: "authApi",
     baseQuery: fetchBaseQuery({
         baseUrl: USER_API,
-        Credentials: "include"
+        credentials: "include"
     }),
     endpoints: (builder) => ({
         registerUser: builder.mutation({
@@ -32,13 +32,46 @@ export const authApi = createApi({
                 }
             }
         }),
+        logoutUser: builder.mutation({
+            query: () => ({
+                url: "logout",
+                method:"GET",
+                credentials: "include"
+            }),
+             async onQueryStarted(_, {queryFulfilled, dispatch}) {
+                try {
+                    const result = await queryFulfilled;
+                    dispatch(userLoggedOut({user:null}));
+                }catch(error){
+                    console.log(error);
+                }
+            }
+        }),
         loadUser: builder.query({
             query: () => ({
                 url: "profile",
-                method: "GET"
+                method: "GET",
+                credentials: "include"
+            }),
+            async onQueryStarted(_, {queryFulfilled, dispatch}) {
+                try {
+                    const result = await queryFulfilled;
+                    dispatch(userLoggedIn({user: result.data.user}));
+                } catch (error) {
+                    console.log(error);
+                }
+            }
+        }),
+        updateUser: builder.mutation({
+            query: (formData) =>({
+                url: "profile/update",
+                method: "PUT",
+                body: formData,
+                credentials:"include"
+                
             })
         })
     })
 });
 
-export const { useRegisterUserMutation, useLoginUserMutation, useLoadUserQuery } = authApi;
+export const { useRegisterUserMutation, useLoginUserMutation, useLoadUserQuery, useUpdateUserMutation, useLogoutUserMutation } = authApi;

@@ -68,7 +68,7 @@ export const Login = () => {
       toast.success(registerData.message || "Signup successful")
     }
     if(registerError){
-      toast.success(registerData.data.message || "Signup unsuccessful")
+      toast.success(registerError.data.message || "Signup unsuccessful")
     }
     if(loginIsSuccess && loginData){
       toast.success(loginData.message || "Login successful");
@@ -76,7 +76,7 @@ export const Login = () => {
 
     }
      if(loginError){
-      toast.success(loginData.data.message || "login unsuccessful")
+      toast.success(loginError.data.message || "login unsuccessful")
     }
   }, [
     loginIsLoading,
@@ -89,7 +89,7 @@ export const Login = () => {
   return (
     <div className="flex items-center justify-center w-full mt-20">
       <div className="flex w-full max-w-sm flex-col gap-6">
-        <Tabs defaultValue="account">
+        <Tabs defaultValue="login">
           <TabsList>
             <TabsTrigger value="signup">Sign up</TabsTrigger>
             <TabsTrigger value="login">Login</TabsTrigger>
