@@ -18,7 +18,7 @@ export const isauthenticated = async(req,res, next) => {
         next();
     } catch(error){
         console.log(error);
-        return res.status.json({
+        return res.status(401).json({
             msg: "Is not Authenticated"
         })
     }
